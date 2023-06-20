@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+    web:
+        build:
+            context: ./.docker
+            dockerfile: web.dockerfile
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - app
+        ports:
+            - 8080:80
+
+    # PHP 8.2
+    app:
+        build:
+            context: ./.docker
+            dockerfile: app.dockerfile
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - db
+
+    # PostgreSQL 15
+    db:
+        image: postgres:15-alpine
+        volumes:
+            - dbdata:/var/lib/postgresql/data
+        environment:
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - 5432:5432
+
+    # Redis 7
+    redis:
+        image: redis:7-alpine
+        ports:
+            - 6379:6379
+
+volumes:
+    dbdata:
