@@ -13,3 +13,7 @@ Make
 1. Preferences->Build,Execution,Deployment->Build Tools->make
 2. прописать путь до make в wsl ```\\wsl$\Ubuntu-22.04\usr\bin\make```
 Появится возможность запускать Makefile из интерфейса PhpStorm
+
+Описание структуры:
+1. Аутентификация sanctum для API МП и Frontend + fortify для админки
+2. Структура расположения модулей - каталоги
